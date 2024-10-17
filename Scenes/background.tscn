@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://4hcyy60kr0sy"]
+
+[ext_resource type="AudioStream" uid="uid://c56iyetq7tg7j" path="res://Assets/nord-wind-16105.mp3" id="1_lfomu"]
+[ext_resource type="AudioStream" uid="uid://cegqrbtjewn6v" path="res://Assets/howling-wind-14499.mp3" id="2_woxt2"]
+
+[node name="Background" type="AudioStreamPlayer"]
+process_mode = 3
+stream = ExtResource("1_lfomu")
+volume_db = -10.0
+autoplay = true
+
+[node name="Wind" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_woxt2")
+volume_db = -15.0
+autoplay = true

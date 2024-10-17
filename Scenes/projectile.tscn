@@ -1,0 +1,127 @@
+[gd_scene load_steps=19 format=3 uid="uid://gbdt4hme0in3"]
+
+[ext_resource type="Script" path="res://Scripts/projectile.gd" id="1_poq1s"]
+[ext_resource type="Texture2D" uid="uid://cacrtfbfhyx0m" path="res://Assets/spark-ezgif.com-gif-to-sprite-converter.png" id="1_tjspu"]
+[ext_resource type="Texture2D" uid="uid://m56qa3vdxb5c" path="res://Assets/light.png" id="3_eegsc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxu5u"]
+atlas = ExtResource("1_tjspu")
+region = Rect2(0, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebjb3"]
+atlas = ExtResource("1_tjspu")
+region = Rect2(15, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqxlq"]
+atlas = ExtResource("1_tjspu")
+region = Rect2(30, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkmwr"]
+atlas = ExtResource("1_tjspu")
+region = Rect2(45, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yhdn"]
+atlas = ExtResource("1_tjspu")
+region = Rect2(60, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nv13s"]
+atlas = ExtResource("1_tjspu")
+region = Rect2(75, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6elpy"]
+atlas = ExtResource("1_tjspu")
+region = Rect2(90, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qavwu"]
+atlas = ExtResource("1_tjspu")
+region = Rect2(105, 0, 15, 14)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rxtv3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxu5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebjb3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqxlq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkmwr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6yhdn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nv13s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6elpy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qavwu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_igeek"]
+radius = 6.0
+
+[sub_resource type="Gradient" id="Gradient_scxvm"]
+colors = PackedColorArray(0.996094, 0.945313, 0.25, 1, 0.640625, 0.996094, 0.386719, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0m4cl"]
+gradient = SubResource("Gradient_scxvm")
+
+[sub_resource type="Curve" id="Curve_bur2t"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2vdce"]
+curve = SubResource("Curve_bur2t")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ar61o"]
+emission_shape = 1
+emission_sphere_radius = 8.0
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -10.0
+initial_velocity_max = 10.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 2.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_2vdce")
+color_ramp = SubResource("GradientTexture1D_0m4cl")
+turbulence_enabled = true
+turbulence_influence_max = 0.28
+
+[node name="Projectile" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_poq1s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rxtv3")
+autoplay = "default"
+frame_progress = 0.889222
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_igeek")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.996078, 0.905882, 0.380392, 1)
+energy = 0.5
+texture = ExtResource("3_eegsc")
+texture_scale = 0.05
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_ar61o")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,94 @@
+[gd_scene load_steps=14 format=3 uid="uid://c33bm3e0gamwj"]
+
+[ext_resource type="Texture2D" uid="uid://cacrtfbfhyx0m" path="res://Assets/spark-ezgif.com-gif-to-sprite-converter.png" id="1_lg5sm"]
+[ext_resource type="Script" path="res://Scripts/item.gd" id="1_xy6h6"]
+[ext_resource type="Texture2D" uid="uid://m56qa3vdxb5c" path="res://Assets/light.png" id="2_xl0wt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxu5u"]
+atlas = ExtResource("1_lg5sm")
+region = Rect2(0, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebjb3"]
+atlas = ExtResource("1_lg5sm")
+region = Rect2(15, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqxlq"]
+atlas = ExtResource("1_lg5sm")
+region = Rect2(30, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkmwr"]
+atlas = ExtResource("1_lg5sm")
+region = Rect2(45, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yhdn"]
+atlas = ExtResource("1_lg5sm")
+region = Rect2(60, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nv13s"]
+atlas = ExtResource("1_lg5sm")
+region = Rect2(75, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6elpy"]
+atlas = ExtResource("1_lg5sm")
+region = Rect2(90, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qavwu"]
+atlas = ExtResource("1_lg5sm")
+region = Rect2(105, 0, 15, 14)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3m50p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxu5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebjb3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqxlq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkmwr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6yhdn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nv13s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6elpy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qavwu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h0l5v"]
+radius = 6.0
+
+[node name="Item" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+collision_layer = 8
+collision_mask = 4
+input_pickable = true
+script = ExtResource("1_xy6h6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3m50p")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_h0l5v")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.996078, 0.905882, 0.380392, 1)
+energy = 0.5
+texture = ExtResource("2_xl0wt")
+texture_scale = 0.05
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

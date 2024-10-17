@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://hl84exlpawg5"]
+
+[ext_resource type="Texture2D" uid="uid://c32e62isk0gc2" path="res://Assets/Freya_Mad.png" id="1_7hjc6"]
+[ext_resource type="Script" path="res://Scripts/off_screen_marker.gd" id="1_r14tl"]
+[ext_resource type="Texture2D" uid="uid://dv2p3j862ufsx" path="res://Assets/location_408167.png" id="2_4dncf"]
+
+[node name="OffScreenMarker" type="Node2D"]
+script = ExtResource("1_r14tl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.0551157, 0.118111)
+rotation = 4.71239
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_4dncf")
+offset = Vector2(0.116408, -243.239)
+
+[node name="Icon" type="Sprite2D" parent="Sprite2D"]
+z_index = -1
+position = Vector2(5, -310)
+rotation = 1.5708
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_7hjc6")

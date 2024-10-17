@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://dadw84ks6qjw5"]
+
+[ext_resource type="Script" path="res://Scripts/item_2.gd" id="1_ye6k6"]
+[ext_resource type="Texture2D" uid="uid://ck2tb74nk2gfu" path="res://Assets/Antidote 1.png" id="2_uu26u"]
+[ext_resource type="Texture2D" uid="uid://c21o1gh2kc7k0" path="res://Assets/Antidote 2.png" id="3_whvc0"]
+[ext_resource type="Texture2D" uid="uid://bmno48btngdlv" path="res://Assets/Antidote 3.png" id="4_b6t8e"]
+[ext_resource type="Texture2D" uid="uid://dmquxb2qggmpo" path="res://Assets/Antidote 4.png" id="5_gx5rx"]
+[ext_resource type="Texture2D" uid="uid://twd7dqex6y2j" path="res://Assets/Antidote 5.png" id="6_tei35"]
+[ext_resource type="Texture2D" uid="uid://b10e3oufn27jo" path="res://Assets/Antidote 6.png" id="7_vaaim"]
+[ext_resource type="Texture2D" uid="uid://m56qa3vdxb5c" path="res://Assets/light.png" id="8_dhl0q"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gbqxm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_uu26u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_whvc0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_b6t8e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gx5rx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_tei35")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_vaaim")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h0l5v"]
+radius = 6.0
+
+[node name="Item2" type="CharacterBody2D"]
+scale = Vector2(0.05, 0.05)
+collision_layer = 8
+collision_mask = 4
+input_pickable = true
+script = ExtResource("1_ye6k6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_gbqxm")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_h0l5v")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(1.52588e-05, 1.52588e-05)
+scale = Vector2(41.585, 41.585)
+color = Color(0.679688, 0.476563, 0.941406, 1)
+energy = 0.5
+texture = ExtResource("8_dhl0q")
+texture_scale = 0.05
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered" flags=18]

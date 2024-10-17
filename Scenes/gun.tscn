@@ -1,0 +1,105 @@
+[gd_scene load_steps=14 format=3 uid="uid://b1hfov7kvfwgh"]
+
+[ext_resource type="Script" path="res://Scripts/gun.gd" id="1_03edi"]
+[ext_resource type="Texture2D" uid="uid://cacrtfbfhyx0m" path="res://Assets/spark-ezgif.com-gif-to-sprite-converter.png" id="1_vsek7"]
+[ext_resource type="Texture2D" uid="uid://m56qa3vdxb5c" path="res://Assets/light.png" id="2_o15w4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ya5v"]
+radius = 107.019
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxu5u"]
+atlas = ExtResource("1_vsek7")
+region = Rect2(0, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebjb3"]
+atlas = ExtResource("1_vsek7")
+region = Rect2(15, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqxlq"]
+atlas = ExtResource("1_vsek7")
+region = Rect2(30, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkmwr"]
+atlas = ExtResource("1_vsek7")
+region = Rect2(45, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yhdn"]
+atlas = ExtResource("1_vsek7")
+region = Rect2(60, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nv13s"]
+atlas = ExtResource("1_vsek7")
+region = Rect2(75, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6elpy"]
+atlas = ExtResource("1_vsek7")
+region = Rect2(90, 0, 15, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qavwu"]
+atlas = ExtResource("1_vsek7")
+region = Rect2(105, 0, 15, 14)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f5vuy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxu5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebjb3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqxlq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkmwr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6yhdn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nv13s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6elpy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qavwu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Gun" type="Area2D" groups=["gun"]]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_03edi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7ya5v")
+
+[node name="WeaponPivot" type="Marker2D" parent="."]
+
+[node name="Energy" type="AnimatedSprite2D" parent="WeaponPivot"]
+position = Vector2(0, -40.2)
+sprite_frames = SubResource("SpriteFrames_f5vuy")
+autoplay = "default"
+frame_progress = 0.148133
+
+[node name="PointLight2D" type="PointLight2D" parent="WeaponPivot"]
+position = Vector2(0, -40)
+color = Color(0.996078, 0.905882, 0.380392, 1)
+energy = 0.5
+texture = ExtResource("2_o15w4")
+texture_scale = 0.05
+
+[node name="ShootingPoint" type="Marker2D" parent="WeaponPivot"]
+unique_name_in_owner = true
+position = Vector2(0, -40)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.8
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,124 @@
+[gd_scene load_steps=14 format=3 uid="uid://cuoukkkgmpn2k"]
+
+[ext_resource type="Texture2D" uid="uid://uaxwyu0kj8su" path="res://Assets/FB500-1.png" id="1_de4ni"]
+[ext_resource type="Script" path="res://Scripts/fire.gd" id="1_jw7ty"]
+[ext_resource type="Texture2D" uid="uid://dd547r4lw0xv4" path="res://Assets/FB500-2.png" id="2_c43nt"]
+[ext_resource type="Texture2D" uid="uid://jck3cxk8af0o" path="res://Assets/FB500-3.png" id="3_bd8uy"]
+[ext_resource type="Texture2D" uid="uid://ct7ccd4w30pj7" path="res://Assets/FB500-4.png" id="4_y0f23"]
+[ext_resource type="Texture2D" uid="uid://dch0j643yb0po" path="res://Assets/FB500-5.png" id="5_f2w2e"]
+[ext_resource type="Texture2D" uid="uid://m56qa3vdxb5c" path="res://Assets/light.png" id="7_de5cq"]
+[ext_resource type="FontFile" uid="uid://cglnpk8142vi2" path="res://Assets/GravityRegular5.ttf" id="8_hqwbq"]
+[ext_resource type="Texture2D" uid="uid://bgibde5if6cuv" path="res://Assets/healthbarUnder.png" id="9_njfja"]
+[ext_resource type="Texture2D" uid="uid://o2kobep8jss1" path="res://Assets/healthbarProgress.png" id="10_i4no1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lepqw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_de4ni")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_c43nt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_bd8uy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_y0f23")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f2w2e")
+}],
+"loop": true,
+"name": &"regular",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5nuhu"]
+radius = 129.653
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4cc5m"]
+radius = 202.01
+
+[node name="Fire" type="CharacterBody2D" groups=["fire"]]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_jw7ty")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -256)
+sprite_frames = SubResource("SpriteFrames_lepqw")
+animation = &"regular"
+autoplay = "regular"
+frame_progress = 0.464124
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -256)
+shape = SubResource("CircleShape2D_5nuhu")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -256)
+color = Color(0.996078, 0.905882, 0.380392, 1)
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("7_de5cq")
+texture_scale = 2.0
+
+[node name="Interaction Components" type="Node2D" parent="."]
+z_index = 1
+
+[node name="Interaction Area" type="Area2D" parent="Interaction Components"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction Components/Interaction Area"]
+position = Vector2(0, -256)
+shape = SubResource("CircleShape2D_4cc5m")
+
+[node name="Interact Label" type="Label" parent="Interaction Components"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -173.5
+offset_top = -584.0
+offset_right = 173.5
+offset_bottom = -500.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("8_hqwbq")
+theme_override_font_sizes/font_size = 36
+text = "Light Fire (F)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -569.0
+offset_right = -128.0
+offset_bottom = -529.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(6, 5)
+size_flags_horizontal = 4
+value = 100.0
+texture_under = ExtResource("9_njfja")
+texture_progress = ExtResource("10_i4no1")
+
+[node name="Fb500-1" type="Sprite2D" parent="."]
+position = Vector2(0, -613)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_de4ni")
+
+[connection signal="area_entered" from="Interaction Components/Interaction Area" to="." method="_on_interaction_area_area_entered"]
+[connection signal="area_exited" from="Interaction Components/Interaction Area" to="." method="_on_interaction_area_area_exited"]
